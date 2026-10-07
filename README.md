@@ -1,4 +1,4 @@
-GitHub: https://github.com/songhwangcross-svg/ledger-api · Render: (배포 후 기입)
+GitHub: https://github.com/songhwangcross-svg/ledger-api · Render: https://ledger-api-omev.onrender.com (API 문서: https://ledger-api-omev.onrender.com/docs)
 
 # 가계부 API (ledger-api) — 클라우드컴퓨팅실습 W4
 
@@ -19,7 +19,8 @@ FastAPI + SQLAlchemy로 만든 가계부 API를 Render에 배포하고, 데이�
 
 ### ① 결과 확인
 - Supabase Table Editor에 `accounts` · `categories` · `transactions` 세 테이블이 생성되어 있다.
-- Render 배포 주소의 `/docs`에서 `GET /accounts`가 Supabase의 계좌를 돌려주고, `POST /accounts`로 만든 「배포테스트」 계좌가 Supabase Table Editor에 나타나는 것을 확인했다.
+- Render 배포 주소(https://ledger-api-omev.onrender.com/docs)에서 `GET /accounts`가 Supabase에 저장된 계좌 2건(수업 중 로컬에서 입력)을 그대로 돌려주었고, `POST /accounts`로 만든 「배포테스트」 계좌(id 3)가 Supabase Table Editor의 accounts 테이블에 바로 나타났다. → 로컬 앱과 Render 앱이 같은 클라우드 DB를 본다.
+- Render 로그에 SQLite 전용 명령(PRAGMA)이 아니라 `pg_catalog` 조회가 찍혀, 환경변수 DATABASE_URL로 PostgreSQL(Supabase)에 연결됐음을 확인했다.
 
 ### ② 핵심 개념 되새김
 - **계좌·거래를 두 테이블로 나눈 이유(1:N)**: 계좌 하나에 거래가 여러 건 붙으므로, 계좌 정보는 한 번만 저장하고 거래는 `account_id`(외래키)로 계좌를 가리키게 해야 중복과 불일치가 없다.
